@@ -5,8 +5,23 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+const db = mysql.createConnection(
+    {
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'books_db'
+    }
+);
+
+
+
 app.get("/books", (req, res) => {
-    res.json("some books");
+    
+    db.query('select * from favorite_books', (err, results) => {
+    console.log(results);
+    res.json(results);
+});
 });
 
 app.listen(PORT, () => {
